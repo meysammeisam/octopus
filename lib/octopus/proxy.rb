@@ -69,6 +69,9 @@ module Octopus
     # connection pool.  Previously, that would work since the pool would just
     # reconnect, but in Rails 3.1 the flag prevents this.
     def safe_connection(connection_pool)
+      p "*"*80
+      p connection_pool
+      p "*"*80
       connection_pool.automatic_reconnect ||= true
       if !connection_pool.connected? && shards[Octopus.master_shard].connection.query_cache_enabled
         connection_pool.connection.enable_query_cache!
